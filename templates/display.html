@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Info</title>
+</head>
+<body>
+<h2>{{ date }},共{{ count }}条数据</h2>
+<form  action="/web/save/" method="post">
+{% csrf_token %}
+        <table border="1" cellspacing="0" name="files">
+            <tr>
+                <th>序号</th>
+                <th>标题</th>
+                <th>摘要</th>
+                <th>来源</th>
+                <th></th>
+            </tr>
+            {% for Record in Record_list %}
+                <tr id={{forloop.counter}}>
+                    <td name="id" style="display:none"><input name="id" style="width: 50px" value="{{forloop.counter}}"/></td>
+                    <td><a>{{forloop.counter}}</a></td>
+
+                    <td name="title" ><a> {{Record.title}}</a></td>
+
+                    <td name="title" style="display:none"><input  name="title{{forloop.counter}}"  value="{{Record.title}}"/></td>
+
+                    <td name="abstract" style="display:none"><input name="abstract{{forloop.counter}}" value="{{Record.abstract}}"></td>
+                    <td><a>{{Record.abstract}}</a></td>
+
+                    <td name="url" style="display:none"><input  name="url{{forloop.counter}}"  value="{{Record.url}}"/></td>
+
+                    <td name="source" style="display:none"><input name="source{{forloop.counter}}" value="{{Record.source}}"></td>
+                    <td><a href="{{Record.url}}" target="view_window">{{Record.source}}</a></td>
+
+                    <td><input name="tag{{forloop.counter}}" style="width: 50px" type="checkbox" value=1 ></td>
+                </tr>
+            {% endfor %}
+        </table>
+<input style="display:none" name="count" value="{{count}}"/>
+<input style="height: 50px;width: 100px;text-align: center"  type="submit" value="提交"/>
+</form>
+</body>
+</html>
